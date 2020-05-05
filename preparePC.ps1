@@ -1,18 +1,34 @@
-#Requires -Version 5.0
-#Requires -RunAsAdministrator
 <#
 .SYNOPSIS
-  <Overview of script>
+Base script to prepare a Windows PC with some base tools 
+
 .DESCRIPTION
-  <Brief description of script>
-.PARAMETER <Parameter_Name>
-    <Brief description of parameter input required. Repeat this attribute if required>
+With this script, for now, you can prepare a Windows PC with:
+ - Enable script from powershell
+ - Install choco (Package manager for Windows)
+ - Install/Upgrade some useful tool, you can add/remove them in the list below {$SoftwareList}
+ - Rename your PC
+
+.INPUTS
+None. You cannot pipe objects to preparePC.ps1
+
+.OUTPUTS
+None. You cannot pipe objects to preparePC.ps1
+
+.EXAMPLE
+PS> .\preparePC.ps1
+
 .NOTES
-  Version:        1.0
-  Author:         Luca Pisciotta
-  Creation Date:  2020-05-04
-  Purpose/Change: Initial script development
+Version:        1.0
+ Author:         Luca Pisciotta
+ Creation Date:  2020-05-04
+ Purpose/Change: Base Script
+
 #>
+
+
+#Requires -Version 5.0
+#Requires -RunAsAdministrator
 
 # Enable Insecure script
 $PolicyStatus = Get-ExecutionPolicy
