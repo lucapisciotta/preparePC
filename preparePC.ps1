@@ -19,7 +19,7 @@ None. You cannot pipe objects to preparePC.ps1
 PS> .\preparePC.ps1
 
 .NOTES
-Version:        1.0
+ Version:        1.0
  Author:         Luca Pisciotta
  Creation Date:  2020-05-04
  Purpose/Change: Base Script
