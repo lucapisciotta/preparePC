@@ -41,7 +41,7 @@ if (-not($chocoCheck)) {
 
 # Reload PROFILE
 Write-Host 'Reloading your profile...' -ForegroundColor yellow
-. $PROFILE
+RefreshEnv.cmd
 
 # Configure choco
 $FeaturesDisabled = @(
@@ -99,18 +99,43 @@ $SoftwareList = @(
   )
 
 $SoftwareList | ForEach-Object {
-  try {
-    Write-Host 'Installing'$_ -ForegroundColor cyan 
-    #choco install $_ -ErrorAction stop
-    Write-Host $_ 'installed' -ForegroundColor green -ErrorAction stop
-  }
-  catch {
-    Write-Host 'There are some problems with'$_ -ForegroundColor red
+  $SoftwareStatus =  choco list --localonly | Select-String -Pattern $_
+  if (-not($SoftwareStatus)) {
+    try {
+      Write-Host 'Installing'$_ -ForegroundColor cyan 
+      choco install $_  -ErrorAction stop
+      Write-Host $_ 'installed' -ForegroundColor green -ErrorAction stop
+    }
+    catch {
+      Write-Host 'There are some problems with'$_ -ForegroundColor red
+    }
+  } else {
+      $UpgradeNeed = choco upgrade $_ --noop
+      if ($UpgradeNeed -match 'is the latest version') {
+        Write-Host $_ 'installed and upgraded'
+      } else {
+        try {
+          Write-Host 'Upgrading'$_
+          choco upgrade $_  -ErrorAction stop
+        }
+        catch {
+          Write-Host 'There are some problems with'$_ -ForegroundColor red
+        }
+      }
+
   }
 }
 
-<#
 # Set an hostname to your Wokstation
-$HOSTNAME = Read-Host -Prompt 'Choose an hostname for this PC:'
-Rename-Computer -Force -NewName $HOSTNAME -Restart
-#>
+
+$ActualWorkstationName = Invoke-Expression hostname
+Write-Host 'Actual workstation name is' $ActualWorkstationName', do you want to change it? (Default is No)' -ForegroundColor yellow
+$ChangeChoose = Read-Host ' ( y / n )'
+switch ($ChangeChoose) {
+  y {
+    $HOSTNAME = Read-Host -Prompt 'Choose an hostname for this PC:'
+    Rename-Computer -Force -NewName $HOSTNAME -Restart
+  }
+  n {Write-Host 'Ok, nothing to change, bye...'}
+  Default {Write-Host 'Ok, nothing to change, bye...'}
+}
