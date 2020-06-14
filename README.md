@@ -1,8 +1,8 @@
 <h1 align="center">Welcome to Prepare Windows PC 👋</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-1-blue.svg?cacheSeconds=2592000" />
-  <a href="https://twitter.com/luca\_pisciotta" target="_blank">
-    <img alt="Twitter: luca\_pisciotta" src="https://img.shields.io/twitter/follow/luca\_pisciotta.svg?style=social" />
+  <a href="https://twitter.com/luca_pisciotta" target="_blank">
+    <img alt="Twitter: luca_pisciotta" src="https://img.shields.io/twitter/follow/luca\_pisciotta.svg?style=social" />
   </a>
 </p>
 
